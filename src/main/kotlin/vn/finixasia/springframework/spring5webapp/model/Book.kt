@@ -3,16 +3,19 @@ package vn.finixasia.springframework.spring5webapp.model
 import javax.persistence.*
 
 @Entity
-data class Book constructor(val title: String, val isbn: String, val publisher: String) {
+data class Book constructor(var title: String, var isbn: String) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long = 0
+    var id: Long = 0
 
     @ManyToMany
     @JoinTable(name = "author_book"
             , joinColumns = arrayOf(JoinColumn(name = "book_id"))
             , inverseJoinColumns = arrayOf(JoinColumn(name = "author_id")))
-    val authors:Set<Author> = HashSet()
+    var authors:MutableSet<Author> = HashSet()
+
+    @OneToOne
+    var publisher: Publisher? = null
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true

@@ -3,13 +3,13 @@ package vn.finixasia.springframework.spring5webapp.model
 import javax.persistence.*
 
 @Entity
-data class Author constructor(val firstName: String, val lastName: String) {
+data class Author constructor(var firstName: String, var lastName: String) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long = 0
+    var id: Long = 0
 
     @ManyToMany(mappedBy = "authors")
-    val books: Set<Book> = HashSet()
+    var books: MutableSet<Book> = HashSet()
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true
